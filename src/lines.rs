@@ -1,4 +1,4 @@
-use std::{cell::Cell, ops::{Add, AddAssign, Mul, Neg, Sub, Div}};
+use std::ops::{Add, AddAssign, Mul, Neg, Sub, Div};
 
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct DirectedLineSegment {

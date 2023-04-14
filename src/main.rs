@@ -1,4 +1,4 @@
-use algorithm::{subdivide, sierpinski};
+use algorithm::sierpinski;
 use lines::{DirectedLineSegment, Vector};
 use renderer::render;
 
