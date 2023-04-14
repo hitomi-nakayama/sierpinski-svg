@@ -18,7 +18,7 @@ pub fn render(lines: &[DirectedLineSegment], box_width: usize, box_height: usize
     let path = Path::new()
         .set("fill", "none")
         .set("stroke", "black")
-        .set("stroke-width", 1)
+        .set("stroke-width", 0.25)
         .set("d", data);
 
     Document::new()

@@ -1,5 +1,6 @@
-use std::{cell::Cell, ops::{Add, AddAssign, Mul, Neg, Sub}};
+use std::{cell::Cell, ops::{Add, AddAssign, Mul, Neg, Sub, Div}};
 
+#[derive(Clone, Debug, Default, PartialEq)]
 pub struct DirectedLineSegment {
     pub initial_point: Vector,
     pub terminal_point: Vector
@@ -15,6 +16,20 @@ impl DirectedLineSegment {
     pub fn relative_vector(&self) -> Vector {
         self.terminal_point - self.initial_point
     }
+
+    pub fn rotate(&self, angle: f64) -> DirectedLineSegment {
+        DirectedLineSegment {
+            initial_point: self.initial_point,
+            terminal_point: self.initial_point + self.relative_vector().rotate(angle)
+        }
+    }
+
+    pub fn reverse(&self) -> DirectedLineSegment {
+        DirectedLineSegment {
+            initial_point: self.terminal_point,
+            terminal_point: self.initial_point
+        }
+    }
 }
 
 #[derive(Copy, Clone, Debug, Default, PartialEq)]
@@ -28,6 +43,14 @@ impl Vector {
         Vector {
             x,
             y
+        }
+    }
+
+    /** angle is in radians */
+    pub fn rotate(&self, angle: f64) -> Vector {
+        Vector {
+            x: self.x * angle.cos() - self.y * angle.sin(),
+            y: self.x * angle.sin() + self.y * angle.cos()
         }
     }
 }
@@ -98,6 +121,25 @@ impl Neg for &Vector {
         Vector {
             x: -self.x,
             y: -self.y
+        }
+    }
+}
+
+impl Div<f64> for Vector {
+    type Output = Vector;
+
+    fn div(self, other: f64) -> Vector {
+        &self / &other
+    }
+}
+
+impl Div<&f64> for &Vector {
+    type Output = Vector;
+
+    fn div(self, other: &f64) -> Vector {
+        Vector {
+            x: self.x / other,
+            y: self.y / other
         }
     }
 }
